@@ -5,7 +5,9 @@
 * The dependencies are reflected in `Dockerfile`
 
 ## HOWTO
+* Clone the repo and checkout master branch: `git clone https://github.com/iik1997/pyTessStream.git && cd pyTessStream && git checkout master`
 * Build the image: `podman build -t mytess_streamlitapp_img .`
+* Create directories: `mkdir config-cont data-cont output-cont` 
 * Run the app: `podman run -p 8888:8888 -v ./config-cont:/app/config -v ./data-cont:/app/data -v ./output-cont:/app/output -d mytess_streamlitapp_img`
     * Tesseract config params are in `.env` file locally accessible via `./config-cont/.env` (reasonable defaults are already set)
     * Uploaded picture files are locally accessible (and also can be cleaned up) via `./data-cont`
