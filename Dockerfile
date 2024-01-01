@@ -22,14 +22,13 @@ RUN mkdir data && mkdir output && mkdir config
 
 #RUN git clone https://github.com/streamlit/streamlit-example.git .
 COPY requirements.txt .
-COPY mytessapp.py .
-COPY .env .
-RUN mv .env /app/config
 
-RUN pip3 install install --no-cache-dir -r requirements.txt
+RUN pip3 install --no-cache-dir -r requirements.txt
 
 RUN wget https://github.com/tesseract-ocr/tessdata/raw/main/por.traineddata \
     && mv por.traineddata /usr/share/tesseract-ocr/4.00/tessdata/
+
+COPY mytessapp.py .
 
 EXPOSE 8888
 
