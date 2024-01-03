@@ -23,7 +23,11 @@ class TessApp:
         '''
         st.set_page_config(layout='wide')
 
+        self.tesseract_page_segmentation_mode = None
+        self.tesseract_ocr_engine_mode = None
         self.load_tess_config()
+        self.psm_range = [it for it in range(0,14)]
+        self.oem_range = [it for it in range(0,4)]
         
         self.sidebar = st.sidebar
         self.upform = st.form
@@ -113,6 +117,15 @@ class TessApp:
                     ret = self.store_file(uploaded_file, adjusted_file_name)
                     if ret is not False:
                         self.do_ocr(adjusted_file_name)
+
+            self.tesseract_page_segmentation_mode = st.selectbox(
+            label='Segmentation Mode (def=3)',
+            options=[it for it in self.psm_range]
+            )
+            self.tesseract_ocr_engine_mode = st.selectbox(
+            label='OCR Engine (def=3)',
+            options=[it for it in self.oem_range]
+            )
 
         st.title("OCR Results")
         
