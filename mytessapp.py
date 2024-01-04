@@ -23,9 +23,9 @@ class TessApp:
         '''
         st.set_page_config(layout='wide')
 
-        self.tesseract_page_segmentation_mode = None
-        self.tesseract_ocr_engine_mode = None
-        self.load_tess_config()
+        self.tesseract_page_segmentation_mode = 3
+        self.tesseract_ocr_engine_mode = 3
+        #self.load_tess_config()
         self.psm_range = [it for it in range(0,14)]
         self.oem_range = [it for it in range(0,4)]
         
@@ -35,11 +35,11 @@ class TessApp:
         self.ocr_filename = None
         self.ocr_output = None
 
-    def load_tess_config(self):
-        dotenv_path = join(dirname(__file__), 'config/.env')
-        load_dotenv(dotenv_path)
-        self.tesseract_page_segmentation_mode = os.environ.get('TESSERACT_PAGE_SEGMENTATION_MODE')
-        self.tesseract_ocr_engine_mode = os.environ.get('TESSERACT_OCR_ENGINE_MODE')
+    #def load_tess_config(self):
+    #    dotenv_path = join(dirname(__file__), 'config/.env')
+    #    load_dotenv(dotenv_path)
+    #    self.tesseract_page_segmentation_mode = os.environ.get('TESSERACT_PAGE_SEGMENTATION_MODE')
+    #    self.tesseract_ocr_engine_mode = os.environ.get('TESSERACT_OCR_ENGINE_MODE')
 
     def adjust_name(self,file_name):
         return '{}-oem{}-psm{}.{}'.format(file_name.split('.')[0],
@@ -106,6 +106,15 @@ class TessApp:
             '''
             )
             
+            self.tesseract_page_segmentation_mode = st.selectbox(
+            label='Segmentation Mode (def=3)',
+            options=[it for it in self.psm_range]
+            )
+            self.tesseract_ocr_engine_mode = st.selectbox(
+            label='OCR Engine (def=3)',
+            options=[it for it in self.oem_range]
+            )            
+            
             with self.upform('upload-form',clear_on_submit=True):
                 uploaded_file = st.file_uploader('File Uploader',
                                                  type=['png','jpg','jpeg'], 
@@ -117,15 +126,6 @@ class TessApp:
                     ret = self.store_file(uploaded_file, adjusted_file_name)
                     if ret is not False:
                         self.do_ocr(adjusted_file_name)
-
-            self.tesseract_page_segmentation_mode = st.selectbox(
-            label='Segmentation Mode (def=3)',
-            options=[it for it in self.psm_range]
-            )
-            self.tesseract_ocr_engine_mode = st.selectbox(
-            label='OCR Engine (def=3)',
-            options=[it for it in self.oem_range]
-            )
 
         st.title("OCR Results")
         
