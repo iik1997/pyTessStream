@@ -27,7 +27,9 @@ class TessApp:
         self.tesseract_ocr_engine_mode = 3
         #self.load_tess_config()
         self.psm_range = [it for it in range(0,14)]
+        self.psm_range[0],self.psm_range[3] = self.psm_range[3],self.psm_range[0]
         self.oem_range = [it for it in range(0,4)]
+        self.oem_range[0],self.oem_range[3] = self.oem_range[3],self.oem_range[0]
         
         self.sidebar = st.sidebar
         self.upform = st.form
