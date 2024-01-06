@@ -2,17 +2,17 @@
 
 ## Core Functionality
 * The very basic functionality is in `do_ocr` function of `mytessapp.py`
-* The dependencies are reflected in `Dockerfile`
+* Dependencies are reflected in `Dockerfile`
 
 ## HOWTO
-* Clone the repo and checkout master branch: `git clone https://github.com/iik1997/pyTessStream.git && cd pyTessStream && git checkout master`
+* Clone the repo and checkout master branch: `git clone https://github.com/iik1997/pyTessStream.git && cd pyTessStream && git checkout master` (more recent developments in kai-dev branch)
 * Build the image: `podman build -t mytess_streamlitapp_img .`
-* Create directories and copy (!!!) config (!!!): `mkdir config-cont data-cont output-cont && cp ".env" config-cont/` 
+* Create directories: `mkdir config-cont data-cont output-cont` 
 * Run the app: `podman run -p 8888:8888 -v ./config-cont:/app/config -v ./data-cont:/app/data -v ./output-cont:/app/output -d mytess_streamlitapp_img`
-    * Tesseract config params are in `.env` file locally accessible via `./config-cont/.env` (reasonable defaults are already set)
     * Uploaded picture files are locally accessible (and also can be cleaned up) via `./data-cont`
     * Results of OCR are locally accessible (and also can be cleaned up) via `./output-cont`
-* Upload the input data and see the results locally in a browser via `localhost:8888`
+* Set parameters and upload the input data and see the results locally in a browser via `localhost:8888`
+    * Select Tesseract OCR config params via two drop-down lists (with reasonable defaults set as initial values)
     * Upload a picture file via File Uploader and confirm with OK button
 * Stop the app/release the resources: `podman stop <CONTAINER_NAME> && podman rm <CONTAINER_NAME>`
 

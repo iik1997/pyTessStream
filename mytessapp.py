@@ -25,7 +25,6 @@ class TessApp:
 
         self.tesseract_page_segmentation_mode = 3
         self.tesseract_ocr_engine_mode = 3
-        #self.load_tess_config()
         self.psm_range = [it for it in range(0,14)]
         self.psm_range[0],self.psm_range[3] = self.psm_range[3],self.psm_range[0]
         self.oem_range = [it for it in range(0,4)]
@@ -36,12 +35,6 @@ class TessApp:
         
         self.ocr_filename = None
         self.ocr_output = None
-
-    #def load_tess_config(self):
-    #    dotenv_path = join(dirname(__file__), 'config/.env')
-    #    load_dotenv(dotenv_path)
-    #    self.tesseract_page_segmentation_mode = os.environ.get('TESSERACT_PAGE_SEGMENTATION_MODE')
-    #    self.tesseract_ocr_engine_mode = os.environ.get('TESSERACT_OCR_ENGINE_MODE')
 
     def adjust_name(self,file_name):
         return '{}-oem{}-psm{}.{}'.format(file_name.split('.')[0],
